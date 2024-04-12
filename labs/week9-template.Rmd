@@ -56,9 +56,7 @@ library(rpart.plot)
 library(tmap)
 
 rm(list = ls())
-
-here::i_am("week9-template.Rmd")
-setwd(here())
+getwd()
 ```
 
 #### Load Landsat data
@@ -66,7 +64,7 @@ Let's create a raster stack based on the 6 bands we will be working with. Each f
 
 ```{r include=TRUE}
 # list files for each band, including the full file path
-filelist <- list.files("./data/week9/landsat-data/", full.names = TRUE)
+filelist <- list.files("../data/week9/landsat-data/", full.names = TRUE)
 
 # read in and store as a raster stack
 landsat <- rast(filelist)
@@ -83,7 +81,7 @@ We want to contstrain our analysis to the southern portion of the county where w
 
 ```{r include=TRUE}
 # read in shapefile for southern portion of SB county
-SB_county_south <- st_read("./data/week9/SB_county_south.shp")
+SB_county_south <- st_read("../data/week9/SB_county_south.shp")
 
 # project to match the Landsat data
 SB_county_south <- st_transform(SB_county_south, crs = st_crs(landsat))
@@ -141,7 +139,7 @@ We will load the shapefile identifying different locations within our study area
 
 ```{r include=TRUE}
 # read in and transform training data
-training_data <- st_read("./data/week9/trainingdata.shp") %>% 
+training_data <- st_read("../data/week9/trainingdata.shp") %>% 
   st_transform(., crs = st_crs(landsat))
 
 # extract reflectance values at training sites
